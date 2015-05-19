@@ -1,19 +1,30 @@
-﻿<?php
+<?php
 
 /**
  * @Project NUKEVIET 4.x
- * @Author CLB NukeViet HCMC (hoang.nguyen@webvang.vn)
- * @Copyright (C) 2014 Webvang.vn . All rights reserved
- * @Createdate 08/10/2014
+ * @Author WEBVANG.VN (hoang.nguyen@webvang.vn)
+ * @Copyright (C) 2015 WEBVANG.VN. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate Tue, 19 May 2015 10:34:00 GMT
  */
 
 if ( ! defined( 'NV_MAINFILE' ) ) die( 'Stop!!!' );
 
-$lang_translator['author'] = "CLB NukeViet HCMC (hoang.nguyen@webvang.vn)";
-$lang_translator['createdate'] = "08/10/2014, 08:03";
-$lang_translator['copyright'] = "@Copyright (C) 2014 Webvang.vn. All rights reserved";
-$lang_translator['info'] = "";
-$lang_translator['langtype'] = "lang_module";
+$lang_translator['author'] = 'WEBVANG.VN (hoang.nguyen@webvang.vn)';
+$lang_translator['createdate'] = '19/05/2015, 10:34';
+$lang_translator['copyright'] = '@Copyright (C) 2015 WEBVANG.VN All rights reserved';
+$lang_translator['info'] = '';
+$lang_translator['langtype'] = 'lang_module';
+
+
+$lang_module['change_weight_location'] = 'STT';
+$lang_module['change_status_location'] = 'Thay đổi địa điểm';
+$lang_module['location_del'] = 'Xóa địa điểm';
+$lang_module['family'] = 'Dòng Họ';
+$lang_module['list_family'] = 'Danh sách dòng họ';
+$lang_module['chang_family'] = 'Sữa dòng họ';
+$lang_module['del_family'] = 'Xóa dòng họ';
+$lang_module['save'] = 'Save';
 
 $lang_module['main'] = "Gia pha";
 $lang_module['config'] = "Cau hinh";

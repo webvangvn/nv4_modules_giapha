@@ -25,7 +25,7 @@ $xtpl->assign( 'OP', $op );
 $xtpl->parse( 'main' );
 $contents = $xtpl->text( 'main' );
 
-$page_title = $lang_module['main'];
+$page_title = $lang_module['change_status_location'];
 
 include NV_ROOTDIR . '/includes/header.php';
 echo nv_admin_theme( $contents );

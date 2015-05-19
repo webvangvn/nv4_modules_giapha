@@ -2,9 +2,10 @@
 
 /**
  * @Project NUKEVIET 4.x
- * @Author CLB NukeViet HCMC (hoang.nguyen@webvang.vn)
- * @Copyright (C) 2014 Webvang.vn . All rights reserved
- * @Createdate 08/10/2014
+ * @Author WEBVANG.VN (hoang.nguyen@webvang.vn)
+ * @Copyright (C) 2015 WEBVANG.VN. All rights reserved
+ * @License GNU/GPL version 2 or any later version
+ * @Createdate Tue, 19 May 2015 10:34:00 GMT
  */
 
 if ( ! defined( 'NV_SYSTEM' ) ) die( 'Stop!!!' );

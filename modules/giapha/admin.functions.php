@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @Project NUKEVIET 4.x
  * @Author CLB NukeViet HCMC (hoang.nguyen@webvang.vn)
@@ -7,7 +6,18 @@
  * @Createdate 08/10/2014
  */
 
-if( ! defined( 'NV_ADMIN' ) or ! defined( 'NV_MAINFILE' ) or ! defined( 'NV_IS_MODADMIN' ) ) die( 'Stop!!!' );
+if( ! defined( 'NV_ADMIN' ) or ! defined( 'NV_MAINFILE' ) or ! defined( 'NV_IS_MODADMIN' ) )
+	die( 'Stop!!!' );
+
+if( $NV_IS_ADMIN_MODULE )
+{
+	define( 'NV_IS_ADMIN_MODULE', true );
+}
+
+if( $NV_IS_ADMIN_FULL_MODULE )
+{
+	define( 'NV_IS_ADMIN_FULL_MODULE', true );
+}
 
 define( 'NV_IS_FILE_ADMIN', true );
 
