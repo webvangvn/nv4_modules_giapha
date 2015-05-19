@@ -2,22 +2,20 @@
 
 /**
  * @Project NUKEVIET 4.x
- * @Author VINADES.,JSC (contact@vinades.vn)
- * @Copyright (C) 2014 VINADES.,JSC. All rights reserved
- * @License GNU/GPL version 2 or any later version
- * @Createdate 07/30/2013 10:27
+ * @Author CLB NukeViet HCMC (hoang.nguyen@webvang.vn)
+ * @Copyright (C) 2014 Webvang.vn . All rights reserved
+ * @Createdate 08/10/2014
  */
 
 if( ! defined( 'NV_ADMIN' ) ) die( 'Stop!!!' );
-
-if( ! function_exists('nv_news_array_cat_admin') )
+if( ! function_exists('nv_giapha_array_cat_admin') )
 {
 	/**
-	 * nv_news_array_cat_admin()
+	 * nv_giapha_array_cat_admin()
 	 *
 	 * @return
 	 */
-	function nv_news_array_cat_admin( $module_data )
+	function nv_giapha_array_cat_admin( $module_data )
 	{
 		global $db;
 
@@ -34,8 +32,9 @@ if( ! function_exists('nv_news_array_cat_admin') )
 	}
 }
 
+
 $is_refresh = false;
-$array_cat_admin = nv_news_array_cat_admin( $module_data );
+$array_cat_admin = nv_giapha_array_cat_admin( $module_data );
 
 if( ! empty( $module_info['admins'] ) )
 {
@@ -51,8 +50,9 @@ if( ! empty( $module_info['admins'] ) )
 }
 if( $is_refresh )
 {
-	$array_cat_admin = nv_news_array_cat_admin( $module_data );
+	$array_cat_admin = nv_giapha_array_cat_admin( $module_data );
 }
+
 
 $admin_id = $admin_info['admin_id'];
 $NV_IS_ADMIN_MODULE = false;
@@ -74,47 +74,9 @@ else
 	}
 }
 
-$allow_func = array( 'main', 'view', 'stop', 'publtime', 'waiting', 'declined', 're-published', 'content', 'rpc', 'del_content', 'alias', 'topicajax', 'sourceajax', 'tagsajax', 'cat', 'change_cat', 'list_cat', 'del_cat' );
+$allow_func = array( 'main','location','change_weight_location','alias','change_status_location','location_del','genealogy','family','list_family','chang_family','del_family');
 
-$submenu['cat'] = $lang_module['categories'];
-if( ! isset( $site_mods['cms'] ) )
-{
-	$submenu['content'] = $lang_module['content_add'];
-}
+$submenu['genealogy'] = $lang_module['genealogy'];
+$submenu['location'] = $lang_module['location'];
+$submenu['family'] = $lang_module['family'];
 
-if( $NV_IS_ADMIN_MODULE )
-{
-	$submenu['tags'] = $lang_module['tags'];
-	$submenu['groups'] = $lang_module['block'];
-	$submenu['topics'] = $lang_module['topics'];
-	$submenu['sources'] = $lang_module['sources'];
-	$submenu['setting'] = $lang_module['setting'];
-	$submenu['admins'] = $lang_module['admin'];
-
-	$allow_func[] = 'admins';
-	$allow_func[] = 'topicsnews';
-	$allow_func[] = 'topics';
-	$allow_func[] = 'topicdelnews';
-	$allow_func[] = 'addtotopics';
-	$allow_func[] = 'change_topic';
-	$allow_func[] = 'list_topic';
-	$allow_func[] = 'del_topic';
-
-	$allow_func[] = 'sources';
-	$allow_func[] = 'change_source';
-	$allow_func[] = 'list_source';
-	$allow_func[] = 'del_source';
-
-	$allow_func[] = 'block';
-	$allow_func[] = 'groups';
-	$allow_func[] = 'del_block_cat';
-	$allow_func[] = 'list_block_cat';
-	$allow_func[] = 'chang_block_cat';
-	$allow_func[] = 'change_block';
-	$allow_func[] = 'list_block';
-
-	$allow_func[] = 'tags';
-	$allow_func[] = 'setting';
-	$allow_func[] = 'move';
-	$allow_func[] = 'tools';
-}
