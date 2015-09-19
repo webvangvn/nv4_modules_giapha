@@ -43,7 +43,7 @@ while( list( $lid_i, $title_i ) = $result->fetch( 3 ) )
 }
 
 $rowgenea = array(
-	'id' => '',
+	'gid' => '',
 	'fid' => '',
 	'admin_id' => $admin_info['userid'],
 	'author' => '',
@@ -66,12 +66,81 @@ $rowgenea = array(
 $page_title = $lang_module['genealogy'];
 $error = array();
 
-$rowgenea['id'] = $nv_Request->get_int( 'id', 'get,post', 0 );
+$rowgenea['gid'] = $nv_Request->get_int( 'gid', 'get,post', 0 );
 		
 
-if( $nv_Request->get_int( 'save', 'post' ) == 1 )
+if(  $nv_Request->isset_request( 'save', 'post' ) )
 {
-	$rowgenea['title']='';
+	$rowgeneat['fid'] = $nv_Request->get_int( 'fid', 'post', 0 );
+	$rowgenea['title'] = $nv_Request->get_string( 'title', 'post', '', 1 );
+	$rowgenea['alias'] =  $nv_Request->get_string( 'alias', 'post', '', 1, 255 );
+	if( empty( $rowgenea['title'] ) )
+	{
+		$error = $lang_module['error_genealogy_name'];
+	}
+	elseif( $rowgenea['gid'] == 0 )
+	{
+		//echo 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE title= :title AND parentid=' . $post['parentid'] . '';
+		$stmt = $db->prepare( 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_genealogy WHERE alias= :alias ' );
+		$stmt->bindParam( ':alias', $rowgenea['alias'], PDO::PARAM_STR );
+		$stmt->execute();
+		if( $stmt->fetchColumn() )
+		{
+			$error = $lang_module['title_exit_cat'];
+		}
+		else
+		{
+			$weight = $db->query( 'SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_genealogy '  )->fetchColumn();
+			$weight = intval( $weight ) + 1;
+			$sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_genealogy ( title, alias, weight, add_time, edit_time, userid, fid, locationid, description, rule, content, status, number, years, author, full_name, telephone, email, who_view) VALUES (
+				
+				:title,
+				:alias,
+				" . intval( $weight ) . ",
+				" . NV_CURRENTTIME . ",
+				" . NV_CURRENTTIME . ",
+				" . $admin_info['userid'] . ",
+				" . intval( $rowgenea['fid'] ) . ",
+				:locationid,
+				:description,
+				'',
+				:content,
+				1,
+				0,
+				:years,
+				:author,
+				:full_name,
+				:telephone,
+				:email,
+				0
+			)";
+
+			$data_insert = array();
+			$data_insert['title'] = $rowgenea['title'];
+			$data_insert['alias'] = $rowgenea['alias'];
+			$data_insert['locationid'] = '';
+			$data_insert['description'] = '';
+			$data_insert['content'] = '';
+			$data_insert['years'] = '';
+			$data_insert['author'] = '';
+			$data_insert['full_name'] = '';
+			$data_insert['telephone'] = '';
+			$data_insert['email'] = '';
+
+			if( $db->insert_id( $sql, 'gid', $data_insert ) )
+			{
+			
+				nv_insert_logs( NV_LANG_DATA, $module_name, $lang_module['log_add_genealogy'], $lang_module['genealogy'] .": ". $rowgeneat['title']."", $admin_info['userid'] );
+				nv_del_moduleCache( $module_name );
+				Header( 'Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=location&parentid=' . $post['parentid'] );
+				exit();
+			}
+			else
+			{
+				$error = $sql;
+			}
+		}
+	}
 }
 if( defined( 'NV_EDITOR' ) ) require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/' . NV_EDITOR . '/nv.php';
 
@@ -79,6 +148,7 @@ if( defined( 'NV_EDITOR' ) ) require_once NV_ROOTDIR . '/' . NV_EDITORSDIR . '/'
 $xtpl = new XTemplate( 'genealogy.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file );
 $xtpl->assign( 'LANG', $lang_module );
 $xtpl->assign( 'GLANG', $lang_global );
+$xtpl->assign( 'MODULE_NAME', $module_name );
 // family
 while( list( $fid_i, $title_i ) = each( $array_family_module ) )
 {

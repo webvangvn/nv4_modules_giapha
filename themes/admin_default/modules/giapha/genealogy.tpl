@@ -1,5 +1,5 @@
 <!-- BEGIN: main -->
-<form action="{NV_BASE_ADMINURL}index.php?{NV_NAME_VARIABLE}={MODULE_NAME}&{NV_OP_VARIABLE}={OP}" method="post">
+<form action="{NV_BASE_ADMINURL}index.php?{NV_NAME_VARIABLE}={MODULE_NAME}&{NV_OP_VARIABLE}=genealogy" method="post">
 	<table class="table table-striped table-bordered">
 		<caption>Thông tin chi họ</caption>
 		<tbody>
@@ -115,7 +115,7 @@
 	</table>
 	<div style="text-align: center">
 		<input name="gid" type="hidden" value="{DATA.gid}" />
-		<input name="submit" type="submit" value="{LANG.save}" style="width: 200px;" />
+		<input name="save" type="submit" value="{LANG.save}" style="width: 200px;" />
 	</div>
 	<br/>
 		{LANG.genealogy_note2}
