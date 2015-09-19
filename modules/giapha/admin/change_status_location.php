@@ -16,12 +16,12 @@ $new_status = $nv_Request->get_int( 'new_status', 'post', 0 );
 //$id = $nv_Request->get_int( 'cuid', 'get', 0 );
 //$parentid = $nv_Request->get_int( 'parentid', 'get', 0 );
 //$new_status = $nv_Request->get_int( 'new_status', 'get', 0 );
-$sql = 'SELECT status FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id=' . $id . ' AND parent_id=' . $parentid;
+$sql = 'SELECT status FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id=' . $id . ' AND parentid=' . $parentid;
 $row = $db->query( $sql )->fetch();
 
 if( empty( $row ) ) die( 'NO_' . $id );
 
-$db->query( 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_location SET status=' . $new_status . ' WHERE location_id=' . $id . ' AND parent_id=' . $parentid );
+$db->query( 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_location SET status=' . $new_status . ' WHERE location_id=' . $id . ' AND parentid=' . $parentid );
 
 nv_del_moduleCache( $module_name );
 

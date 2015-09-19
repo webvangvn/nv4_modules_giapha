@@ -16,12 +16,12 @@ $new_weight = $nv_Request->get_int( 'new_weight', 'post', 0 );
 //$id = $nv_Request->get_int( 'cuid', 'get', 0 );
 //$parentid = $nv_Request->get_int( 'parentid', 'get', 0 );
 //$new_weight = $nv_Request->get_int( 'new_weight', 'get', 0 );
-$sql = 'SELECT weight FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id=' . $id . ' AND parent_id=' . $parentid;
+$sql = 'SELECT weight FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id=' . $id . ' AND parentid=' . $parentid;
 $row = $db->query( $sql )->fetch();
 
 if( empty( $row ) OR empty( $new_weight ) ) die( 'NO_' . $id );
 
-$query = 'SELECT location_id FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id !=' . $id . ' AND parent_id=' . $parentid . '  ORDER BY weight ASC';
+$query = 'SELECT location_id FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id !=' . $id . ' AND parentid=' . $parentid . '  ORDER BY weight ASC';
 
 
 
@@ -36,7 +36,7 @@ while( $row = $result->fetch() )
 	$db->query( 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_location SET weight=' . $weight . ' WHERE location_id=' . $row['location_id'] );
 }
 
-$db->query( 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_location SET weight=' . $new_weight . ' WHERE location_id=' . $id . ' AND parent_id=' . $parentid );
+$db->query( 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_location SET weight=' . $new_weight . ' WHERE location_id=' . $id . ' AND parentid=' . $parentid );
 
 nv_del_moduleCache( $module_name );
 

@@ -28,10 +28,10 @@
 				<td class="text-center"><strong>{ROW.fid}</strong></td>
 				<td><a href="{ROW.link}">{ROW.title}</a> </td>
 				<td class="text-center">
-				<select id="id_adddefault_{ROW.fid}" onchange="nv_chang_family('{ROW.fid}','adddefault');">
-					<!-- BEGIN: adddefault -->
-					<option value="{ADDDEFAULT.key}"{ADDDEFAULT.selected}>{ADDDEFAULT.title}</option>
-					<!-- END: adddefault -->
+				<select id="id_status_{ROW.fid}" onchange="nv_chang_family('{ROW.fid}','status');">
+					<!-- BEGIN: status -->
+					<option value="{STATUS.key}"{STATUS.selected}>{STATUS.title}</option>
+					<!-- END: status -->
 				</select></td>
 				<td class="text-center">
 					<em class="fa fa-edit fa-lg">&nbsp;</em> <a href="{ROW.url_edit}">{GLANG.edit}</a> &nbsp;

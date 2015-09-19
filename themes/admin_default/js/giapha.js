@@ -27,13 +27,13 @@ function nv_del_location(cuid, parentid, num) {
 	if (num > 0) {
 		if (confirm("Danh mục này tồn tại " + num + " danh mục con, Nếu đồng ý, các danh mục con sẽ bị xóa. Bạn có muốn tiếp tục xóa?")) {
 			$.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=location_del&nocache=' + new Date().getTime(), 'cuid=' + cuid + '&parentid=' + parentid + '&num=' + num, function(res) {
-				window.location.href = window.location.href;
+				window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=location';
 			});
 		}
 	} else {
 		if (confirm(nv_is_del_confirm[0])) {
 			$.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=location_del&nocache=' + new Date().getTime(), 'cuid=' + cuid + '&parentid=' + parentid + '&num=' + num, function(res) {
-				window.location.href = window.location.href;
+				window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=location';
 			});
 		}
 	}
@@ -58,14 +58,14 @@ function nv_del_family(fid) {
 		$.post(script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=del_family&fid=' + fid + '&nocache=' + new Date().getTime(), '', function(res) {
 			var r_split = res.split("_");
 			if (r_split[0] == 'OK') {
-				window.location.href = window.location.href;
+				window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=family';
 			} else if (r_split[0] == 'ERR') {
 				alert(r_split[1]);
 			} else {
 				alert(nv_is_del_confirm[2]);
 			}
 			
-			window.location.href = window.location.href;
+			window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=family';
 		});
 	}
 	return false;
@@ -80,7 +80,7 @@ function nv_chang_family(fid, mod) {
 			alert(nv_is_change_act_confirm[2]);
 		}
 		clearTimeout(nv_timer);
-		window.location.href = window.location.href;
+		window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=family';
 	});
 	return;
 }
@@ -106,7 +106,7 @@ function nv_del_genealogy(gid) {
 			} else {
 				alert(nv_is_del_confirm[2]);
 			}
-			window.location.href = window.location.href;
+			window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=genealogy';
 		});
 	}
 	return false;
@@ -121,7 +121,7 @@ function nv_chang_genealogy(gid, mod) {
 		}
 		clearTimeout(nv_timer);
 		nv_show_list_genealogy();
-		window.location.href = window.location.href;
+		window.location.href = script_name + '?' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=genealogy';
 	});
 	return;
 }

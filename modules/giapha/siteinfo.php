@@ -8,8 +8,7 @@
  * @Createdate Tue, 19 May 2015 10:34:00 GMT
  */
 
-if ( ! defined( 'NV_IS_FILE_SITEINFO' ) ) die( 'Stop!!!' );
-
+if( ! defined( 'NV_IS_FILE_SITEINFO' ) ) die( 'Stop!!!' );
 
 $lang_siteinfo = nv_get_lang_module( $mod );
 /*

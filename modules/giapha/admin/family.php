@@ -28,7 +28,6 @@ if( ! empty( $savecat ) )
 	$description = nv_nl2br( nv_htmlspecialchars( strip_tags( $description ) ), '<br />' );
 	$alias = ( $alias == '' ) ? change_alias( $title ) : change_alias( $alias );
 
-	$image = $nv_Request->get_string( 'image', 'post', '' );
 	if( empty( $title ) )
 	{
 		$error = $lang_module['error_name'];
@@ -39,12 +38,11 @@ if( ! empty( $savecat ) )
 		$weight = $db->query( "SELECT max(weight) FROM " . NV_PREFIXLANG . "_" . $module_data . "_family" )->fetchColumn();
 		$weight = intval( $weight ) + 1;
 		
-		$sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_family (adddefault, numbers, title, alias, description, image, weight, keywords, add_time, edit_time) VALUES (0, 4, :title , :alias, :description, :image, :weight, :keywords, " . NV_CURRENTTIME . ", " . NV_CURRENTTIME . ")";
+		$sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_family ( title, alias, description, weight, keywords, add_time, edit_time) VALUES ( :title , :alias, :description, :weight, :keywords, " . NV_CURRENTTIME . ", " . NV_CURRENTTIME . ")";
 		$data_insert = array();
 		$data_insert['title'] = $title;
 		$data_insert['alias'] = $alias;
 		$data_insert['description'] = $description;
-		$data_insert['image'] = $image;
 		$data_insert['weight'] = $weight;
 		$data_insert['keywords'] = $keywords;
 		
@@ -62,11 +60,10 @@ if( ! empty( $savecat ) )
 	}
 	else
 	{
-		$stmt = $db->prepare( "UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_family SET title= :title, alias = :alias, description= :description, image= :image, keywords= :keywords, edit_time=" . NV_CURRENTTIME . " WHERE fid =" . $fid );
+		$stmt = $db->prepare( "UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_family SET title= :title, alias = :alias, description= :description, keywords= :keywords, edit_time=" . NV_CURRENTTIME . " WHERE fid =" . $fid );
 		$stmt->bindParam( ':title', $title, PDO::PARAM_STR );
 		$stmt->bindParam( ':alias', $alias, PDO::PARAM_STR );
 		$stmt->bindParam( ':description', $description, PDO::PARAM_STR );
-		$stmt->bindParam( ':image', $image, PDO::PARAM_STR );
 		$stmt->bindParam( ':keywords', $keywords, PDO::PARAM_STR );
 		$stmt->execute();
 		if( $stmt->execute() )
@@ -87,7 +84,7 @@ if( ! empty( $savecat ) )
 $fid = $nv_Request->get_int( 'fid', 'get', 0 );
 if( $fid > 0 )
 {
-	list( $fid, $title, $alias, $description, $image, $keywords ) = $db->query( "SELECT fid, title, alias, description, image, keywords FROM " . NV_PREFIXLANG . "_" . $module_data . "_family where fid=" . $fid )->fetch( 3 );
+	list( $fid, $title, $alias, $description, $image, $keywords ) = $db->query( "SELECT fid, title, alias, description, keywords FROM " . NV_PREFIXLANG . "_" . $module_data . "_family where fid=" . $fid )->fetch( 3 );
 	$lang_module['add_family'] = $lang_module['edit_family'];
 }
 $xtpl = new XTemplate( 'family.tpl', NV_ROOTDIR . '/themes/' . $global_config['module_theme'] . '/modules/' . $module_file );

@@ -26,7 +26,7 @@
 		<tr>
 			
 			<td>
-			   <select id="change_weight_{cuid}" onchange="nv_chang_weight_location('{cuid}','{parentid}','weight');">
+			   <select id="change_weight_{cuid}" onchange="nv_chang_weight_location('{cuid}','{parentid}');">
 				<!-- BEGIN: loop1 -->
 					<option value="{stt}" {select}>{stt}</option>
 				<!-- END: loop1 -->
@@ -68,7 +68,7 @@
 			<td style="width:10px">(<span style="color:#FF0000">*</span>)</td>
 			<td><input type="text" value="{title_cu}" name="title" style="width:350px" id="idtitle">
 			<input type="hidden" value="{location_id}" name="cuid" style="width:350px">
-			<input type="hidden" value="{parent_id}" name="parentid_old" style="width:350px"></td>
+			<input type="hidden" value="{parentid}" name="parentid_old" style="width:350px"></td>
 		</tr>
 
 		<tr>

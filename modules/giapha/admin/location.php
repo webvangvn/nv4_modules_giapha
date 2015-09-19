@@ -22,7 +22,7 @@ if( $post['id'] != 0 )
 	$result = $db->query( $sql );
 	$post = $result->fetch();
 	$post['id'] = $post['location_id'];
-	$post['parentid'] = $post['parent_id'];
+	$post['parentid'] = $post['parentid'];
 	$post['title_cu'] = $post['title'];
 	$post['alias'] = $post['alias'];
 }
@@ -44,8 +44,8 @@ if( $nv_Request->isset_request( 'save', 'post' ) )
 	}
 	elseif( $post['id'] == 0 )
 	{
-		//echo 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE title= :title AND parent_id=' . $post['parentid'] . '';
-		$stmt = $db->prepare( 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE title= :title AND parent_id=' . $post['parentid'] . ''  );
+		//echo 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE title= :title AND parentid=' . $post['parentid'] . '';
+		$stmt = $db->prepare( 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE title= :title AND parentid=' . $post['parentid'] . ''  );
 		$stmt->bindParam( ':title', $post['title'], PDO::PARAM_STR );
 		$stmt->execute();
 		if( $stmt->fetchColumn() )
@@ -54,10 +54,10 @@ if( $nv_Request->isset_request( 'save', 'post' ) )
 		}
 		else
 		{
-			//echo 'SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE  parent_id=' . intval( $post['parentid'] . ''  );
-			$weight = $db->query( 'SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE  parent_id=' . intval( $post['parentid'] . ''  ) )->fetchColumn();
+			//echo 'SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE  parentid=' . intval( $post['parentid'] . ''  );
+			$weight = $db->query( 'SELECT max(weight) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE  parentid=' . intval( $post['parentid'] . ''  ) )->fetchColumn();
 			$weight = intval( $weight ) + 1;
-			$sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_location (parent_id, title, alias, weight, status) VALUES (
+			$sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_location (parentid, title, alias, weight, status) VALUES (
 				" . intval( $post['parentid'] ) . ",
 				:title,
 				:alias,
@@ -86,8 +86,8 @@ if( $nv_Request->isset_request( 'save', 'post' ) )
 	}
 	else
 	{
-		//echo "SELECT count(*) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE title= :title AND parent_id=" . $post['parentid'] . " AND location_id NOT IN (" . $post['id'] . ")";
-		$stmt = $db->prepare( "SELECT count(*) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE title= :title AND parent_id=" . $post['parentid'] . " AND location_id NOT IN (" . $post['id'] . ")" );
+		//echo "SELECT count(*) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE title= :title AND parentid=" . $post['parentid'] . " AND location_id NOT IN (" . $post['id'] . ")";
+		$stmt = $db->prepare( "SELECT count(*) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE title= :title AND parentid=" . $post['parentid'] . " AND location_id NOT IN (" . $post['id'] . ")" );
 		$stmt->bindParam( ':title', $post['title'], PDO::PARAM_STR );
 		$stmt->execute();
 		if( $stmt->fetchColumn() )
@@ -96,9 +96,9 @@ if( $nv_Request->isset_request( 'save', 'post' ) )
 		}
 		else
 		{
-			$title_old = $db->query( "SELECT title FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE  parent_id=" . intval( $post['parentid']) . " AND location_id=" . intval( $post['id']  ) )->fetchColumn();
+			$title_old = $db->query( "SELECT title FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE  parentid=" . intval( $post['parentid']) . " AND location_id=" . intval( $post['id']  ) )->fetchColumn();
 			$stmt = $db->prepare( "UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_location SET
-				parent_id=" . intval( $post['parentid'] ) . ",
+				parentid=" . intval( $post['parentid'] ) . ",
 				title= :title,
 				alias= :alias
 			WHERE location_id=" . intval( $post['id'] ) );
@@ -112,8 +112,8 @@ if( $nv_Request->isset_request( 'save', 'post' ) )
 				
 				if( $pa_old != $post['parentid'] )
 				{
-					//echo "SELECT max(weight) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE  parent_id=" . intval( $post['parentid'] . " " ) ;
-					$weight = $db->query( "SELECT max(weight) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE  parent_id=" . intval( $post['parentid'] . " " ) )->fetchColumn();
+					//echo "SELECT max(weight) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE  parentid=" . intval( $post['parentid'] . " " ) ;
+					$weight = $db->query( "SELECT max(weight) FROM " . NV_PREFIXLANG . "_" . $module_data . "_location WHERE  parentid=" . intval( $post['parentid'] . " " ) )->fetchColumn();
 					$weight = intval( $weight ) + 1;
 
 					$sql = "UPDATE " . NV_PREFIXLANG . "_" . $module_data . "_location SET weight=" . intval( $weight ) . " WHERE location_id=" . intval( $post['id'] );
@@ -153,7 +153,7 @@ $xtpl->assign( 'LANG', $lang_module );
 $xtpl->assign( 'GLANG', $lang_global );
 $xtpl->assign( 'FORM_ACTION', NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=location' ) . '&amp;parentid=' . $post['parentid'];
 $xtpl->assign( 'title_cata', $lang_module['title_cata'] );
-$xtpl->assign( 'parent_id', $post['parentid'] );
+$xtpl->assign( 'parentid', $post['parentid'] );
 $xtpl->assign( 'location_id', $post['id'] );
 $xtpl->assign( 'title_cu', $post['title_cu'] );
 $xtpl->assign( 'alias', $post['alias'] );
@@ -163,14 +163,14 @@ if( !empty( $location) )
 	foreach( $location as $rows )
 	{
 		
-		$sql = 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE parent_id=' . $rows['location_id'];
+		$sql = 'SELECT COUNT(*) FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE parentid=' . $rows['location_id'];
 		//echo $sql;
 		$nu = $db->query( $sql )->fetchColumn();
 		
 		$xtpl->assign( 'title', $rows['title'] );
 		$xtpl->assign( 'num', 0 );
 		$xtpl->assign( 'cuid', $rows['location_id'] );
-		$xtpl->assign( 'parentid', $rows['parent_id'] );
+		$xtpl->assign( 'parentid', $rows['parentid'] );
 		$xtpl->assign( 'link_cu', NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=location' . '&amp;cuid=' . $rows['location_id'] );
 		$xtpl->assign( 'editlink', NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=location' . '&amp;cuid=' . $rows['location_id'] );
 		$xtpl->assign( 'nu', $nu );

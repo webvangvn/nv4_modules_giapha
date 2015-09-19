@@ -42,10 +42,10 @@ if( $mod == 'weight' and $new_vid > 0 )
 	$content = 'OK_' . $fid;
 	nv_del_moduleCache( $module_name );
 }
-elseif( $mod == 'adddefault' and $fid > 0 )
+elseif( $mod == 'status' and $fid > 0 )
 {
 	$new_vid = ( intval( $new_vid ) == 1 ) ? 1 : 0;
-	$sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_family SET adddefault=' . $new_vid . ' WHERE fid=' . $fid;
+	$sql = 'UPDATE ' . NV_PREFIXLANG . '_' . $module_data . '_family SET status=' . $new_vid . ' WHERE fid=' . $fid;
 	$db->query( $sql );
 	$content = 'OK_' . $fid;
 }

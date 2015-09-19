@@ -9,15 +9,6 @@
 if( ! defined( 'NV_ADMIN' ) or ! defined( 'NV_MAINFILE' ) or ! defined( 'NV_IS_MODADMIN' ) )
 	die( 'Stop!!!' );
 
-if( $NV_IS_ADMIN_MODULE )
-{
-	define( 'NV_IS_ADMIN_MODULE', true );
-}
-
-if( $NV_IS_ADMIN_FULL_MODULE )
-{
-	define( 'NV_IS_ADMIN_FULL_MODULE', true );
-}
 
 define( 'NV_IS_FILE_ADMIN', true );
 
@@ -31,7 +22,7 @@ function nv_show_family_cat_list()
 
 	if( $num > 0 )
 	{
-		$array_adddefault = array(
+		$array_status = array(
 			$lang_global['no'],
 			$lang_global['yes']
 		);
@@ -60,25 +51,16 @@ function nv_show_family_cat_list()
 				$xtpl->parse( 'main.loop.weight' );
 			}
 
-			foreach( $array_adddefault as $key => $val )
+			foreach( $array_status as $key => $val )
 			{
-				$xtpl->assign( 'ADDDEFAULT', array(
+				$xtpl->assign( 'STATUS', array(
 					'key' => $key,
 					'title' => $val,
-					'selected' => $key == $row['adddefault'] ? ' selected="selected"' : ''
+					'selected' => $key == $row['status'] ? ' selected="selected"' : ''
 				) );
-				$xtpl->parse( 'main.loop.adddefault' );
+				$xtpl->parse( 'main.loop.status' );
 			}
 
-			for( $i = 1; $i <= 30; ++$i )
-			{
-				$xtpl->assign( 'NUMBER', array(
-					'key' => $i,
-					'title' => $i,
-					'selected' => $i == $row['numbers'] ? ' selected="selected"' : ''
-				) );
-				$xtpl->parse( 'main.loop.number' );
-			}
 
 			$xtpl->parse( 'main.loop' );
 		}

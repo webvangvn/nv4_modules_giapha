@@ -23,7 +23,7 @@ nv_del_moduleCache( $module_name );
 function nv_location_del_sub( $id, $parentid )
 {
 	global $module_data, $module_name, $db, $admin_info, $lang_module;
-	$sql = 'SELECT title FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id=' . $id . ' AND parent_id=' . $parentid;
+	$sql = 'SELECT title FROM ' . NV_PREFIXLANG . '_' . $module_data . '_location WHERE location_id=' . $id . ' AND parentid=' . $parentid;
 	//echo $sql;
 	$row = $db->query( $sql )->fetch();
 	$title=$row['title'];
